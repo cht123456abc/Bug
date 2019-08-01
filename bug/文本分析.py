@@ -28,7 +28,7 @@ from similarity.weighted_levenshtein import WeightedLevenshtein, CharacterSubsti
 
 ##回复率还没解决，整体的描述性统计还没解决！这个可以等重新下数据再来弄，实在不行写论文的时候再弄也可以！问询函的统计应为：问询函-收函日期（如果没收到就定位年末）-是否收函
 # 文件夹路径
-folder_path = "E:/files/"
+folder_path = "/Users/cht/Documents/files/"
 
 
 ##解决csv太大读不了的问题

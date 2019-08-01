@@ -8,13 +8,13 @@ import os
 
 # 全局变量
 # 文件夹路径
-# folder_path = 'E:/files/files/'
-folder_path = 'E:/files/剩余回复函/'
+# folder_path = '/Users/cht/Documents/files/files/'
+folder_path = '/Users/cht/Documents/files/剩余回复函/'
 # url
 url = 'http://reportdocs.static.szse.cn/UpFiles/fxklwxhj/'
 # 加载文档
-# df = pd.read_excel(r'E:\files\主板.xlsx', dtype='object')
-df = pd.read_excel(r'E:\files\创业板下载.xlsx', dtype='object')
+# df = pd.read_excel(r'/Users/cht/Documents\files\主板.xlsx', dtype='object')
+df = pd.read_excel('/Users/cht/Documents/files/创业板下载.xlsx', dtype='object')
 # 初始化任务队列
 tasks_add = queue.Queue()
 # headers

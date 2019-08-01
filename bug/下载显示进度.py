@@ -27,6 +27,6 @@ def formatFloat(num):
 
 
 if __name__ == '__main__':
-    folder = "E:/files/"
+    folder = "/Users/cht/Documents/files/"
     file_name = "360.exe"
     downloadFile(folder + file_name, 'http://down.360safe.com/setup.exe')

@@ -12,15 +12,15 @@ import time
 
 # 全局变量
 # 原pdf文件所在文件夹
-original_folder_path = "E:/files/剩余回复函/"
+original_folder_path = "/Users/cht/Documents/files/剩余回复函/"
 # 现txt文件所在的文件夹
-folder_path = "E:/files/txt/"
+folder_path = "/Users/cht/Documents/files/txt/"
 # 要存放的excel文件路径
-dest_excel_path = "E:/files/公司描述性统计.xlsx"
+dest_excel_path = "/Users/cht/Documents/files/公司描述性统计.xlsx"
 # 二维表格
 table = []
 # HSKFINAL
-HSKFINAL = 'E:/files/HSKFINAL.txt'
+HSKFINAL = '/Users/cht/Documents/files/HSKFINAL.txt'
 dict_lines = pd.read_csv(HSKFINAL, sep='\t')
 
 
@@ -42,7 +42,7 @@ def dictinary():
 # 字典集
 query_dict = dictinary()
 # stopword
-STOPWORD = 'E:/files/上证专用停用词.txt'
+STOPWORD = '/Users/cht/Documents/files/上证专用停用词.txt'
 
 
 # 从文件里面读取文本

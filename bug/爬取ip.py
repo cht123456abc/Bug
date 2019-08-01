@@ -71,7 +71,7 @@ def Test_IP(ip_to_test, port_to_test):
 
 def saveProxyIP(available_ip):
     # 保存可用IP
-    with open(r'E:\files\XCProxy.txt', 'a') as f:
+    with open('/Users/cht/Documents/files\XCProxy.txt', 'a') as f:
         f.write(available_ip + '\n')
 
 

@@ -115,7 +115,7 @@ def download_file(file_path, url):
 
 if __name__ == "__main__":
     # 获取excel
-    df = pd.read_excel(r'E:\files\700多只公告1.xlsx')
+    df = pd.read_excel('/Users/cht/Documents/files/700多只公告1.xlsx')
 
     # 清理NaN数据
     df = df.reset_index(drop=True)
@@ -126,10 +126,10 @@ if __name__ == "__main__":
     print(df)
 
     # 获取ip代理地址
-    my_proxies = get_ip("E:/files/XCProxy.txt")
+    my_proxies = get_ip("/Users/cht/Documents/files/XCProxy.txt")
 
     # 文件夹路径
-    folder_path = 'E:/files/files/'
+    folder_path = '/Users/cht/Documents/files/files/'
 
     # 初始化任务队列
     tasks_add = queue.Queue()

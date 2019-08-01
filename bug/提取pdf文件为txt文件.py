@@ -13,9 +13,9 @@ from pdfminer.pdfinterp import PDFTextExtractionNotAllowed
 
 # 全局变量
 # 所有pdf文件所在的文件夹
-folder_path = "E:/files/剩余回复函/"
+folder_path = "/Users/cht/Documents/files/剩余回复函/"
 # pdf文件转txt文件的目标文件夹
-txt_folder_path = "E:/files/txt/"
+txt_folder_path = "/Users/cht/Documents/files/txt/"
 
 
 # 解析pdf文件

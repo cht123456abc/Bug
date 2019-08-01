@@ -3,9 +3,9 @@ import re
 
 
 # 所有文件所在的文件夹
-# folder_path = "E:/files/剩余回复函/"
-# folder_path = "E:/files/txt/"
-folder_path = "E:/files/files/"
+# folder_path = "/Users/cht/Documents/files/剩余回复函/"
+# folder_path = "/Users/cht/Documents/files/txt/"
+folder_path = "/Users/cht/Documents/files/files/"
 pattern = re.compile(r"评估|会计师|证券股份|律师|评估师|控股股东|实际控制人|无法回复")
 
 # 获取目录下所有文件名称
