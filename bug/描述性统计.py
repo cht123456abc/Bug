@@ -7,7 +7,7 @@ import re
 import time
 
 """
-    解析每个公司的回复函，将回复内容提取出来进行分析，计算该公司回复的迷雾指数
+    解析每个公司的回复函，将回复内容提取出来进行分析，计算该公司回复的迷雾指数等指标
 """
 
 # 全局变量
@@ -17,52 +17,18 @@ original_folder_path = "/Users/cht/Documents/files/剩余回复函/"
 folder_path = "/Users/cht/Documents/files/txt/"
 # 要存放的excel文件路径
 dest_excel_path = "/Users/cht/Documents/files/公司描述性统计.xlsx"
-# 二维表格
-table = []
 # HSKFINAL
 HSKFINAL = '/Users/cht/Documents/files/HSKFINAL.txt'
-dict_lines = pd.read_csv(HSKFINAL, sep='\t')
-
-
-# 构建字典
-def dictinary():
-    # 根据HSK词汇表1-3级词汇构建一个词典：【汉字：code】
-
-    query_dict = {}  # 定义一个字典
-    for row in dict_lines.values:
-        l = str(row)
-        l = l.replace('．', ' ')
-        l = l.strip(punctuation).split()  # 以上在调整格式
-        word_list = l[1]  # 获取词语列
-        word_list = word_list.strip(punctuation)  # 以上在调整格式
-        code = l[0]  # 编号列
-        query_dict[word_list] = code  # 词典格式：词语：编号
-    return query_dict
-
-# 字典集
-query_dict = dictinary()
+query_dict = {}
 # stopword
 STOPWORD = '/Users/cht/Documents/files/上证专用停用词.txt'
-
-
-# 从文件里面读取文本
-def read_from(file_name):
-    line = []
-    with open(file_name, 'r', encoding="utf8") as f:
-        for l in f.readlines():
-            line.append(l)
-    return line
-
-# 停用词
-stopword = read_from(STOPWORD)
 stopwords = []
-for sw in stopword:
-    sw = sw.strip('\n')
-    sw = sw.strip(' ')
-    stopwords.append(sw)
+
+# 二维表格
+table = []
 
 # pattern
-pattern_answer = re.compile(r"(([回复]+|[如下]+)[:：】])|([(（][1-9一二三四五六七八九十][)）])|([一二三四五六七八九十][、.。：:])")
+pattern_answer = re.compile(r"((?:[回复]+|[如下]+)[:：】])|([(（][1-9一二三四五六七八九十][)）])|([一二三四五六七八九十][、.。：:])")
 pattern_start = re.compile(r"(([回复]+|[如下]+)[:：】])")
 pattern_end = re.compile(r"([一二三四五六七八九十1-9][、.。：:])|(问题[:：])|(([回复]+|[如下]+)[:：】])")
 pattern_chinese = re.compile(r"[\u4e00-\u9fa5]{1}")
@@ -135,6 +101,15 @@ map_day = {
     "三十一": "31",
 
 }
+
+
+# 从文件里面读取文本
+def read_from(file_name):
+    line = []
+    with open(file_name, 'r', encoding="utf8") as f:
+        for l in f.readlines():
+            line.append(l)
+    return line
 
 
 # 格式化日期
@@ -231,7 +206,8 @@ def deal_text(text_array, file_path):
     # print("{}的文件大小为:{}KB\n".format(path, file_size))
     # 创建一个新的行将数据加入到table中
     table.append(
-        [group[2], group[3], group[1], group[0], original_pdf_path, replydate, fog_index, sentiments, sum_words, sum_sentences,
+        [group[2], group[3], group[1], group[0], original_pdf_path, replydate, fog_index, sentiments, sum_words,
+         sum_sentences,
          letters_per_sentences, file_size])
 
 
@@ -251,6 +227,7 @@ def get_all_files(dir):
 # 从文本中提取回复：
 def get_answer(text, pattern_answer):
     # 用关键字来分段
+    # 这里还有点问题：split()函数会含有所有分组的分割，但只需要第一个分组，即完整的分组来分割
     result = pattern_answer.split(text)
     L = []
     # 过滤
@@ -265,8 +242,8 @@ def get_answer(text, pattern_answer):
         # print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         # print(x)
         L.append(x)
-    # 将”回复如下：“或者”回复：“ 与 ”序号“ 之间部分提取
 
+    # 将”回复如下：“或者”回复：“ 与 ”序号“ 之间部分提取
     answer = []
     left, right = 0, 0
     while right < len(L):
@@ -353,12 +330,39 @@ def cut_sentences(line):
     return []
 
 
+# 初始化
+def init():
+    dict_lines = pd.read_csv(HSKFINAL, sep='\t')
+
+    # 根据HSK词汇表1-3级词汇构建一个词典：【汉字：code】
+
+    for row in dict_lines.values:
+        l = str(row)
+        l = l.replace('．', ' ')
+        l = l.strip(punctuation).split()  # 以上在调整格式
+        word_list = l[1]  # 获取词语列
+        word_list = word_list.strip(punctuation)  # 以上在调整格式
+        code = l[0]  # 编号列
+        query_dict[word_list] = code  # 词典格式：词语：编号
+
+    # 停用词
+    stopword = read_from(STOPWORD)
+    for sw in stopword:
+        sw = sw.strip('\n')
+        sw = sw.strip(' ')
+        stopwords.append(sw)
+
+
 if __name__ == '__main__':
+
+    # 初始化
+    init()
 
     # 查找文件夹所有文件路径
     files = get_all_files(folder_path)
-    start = time.time()
+
     # 解析所有txt
+    start = time.time()
     for x in files:
         parse(x)
         # break
